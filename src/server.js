@@ -127,8 +127,10 @@ function createServer({ adminPassword, dataFile }) {
     if (!passwordMatches(body.password || '')) return json(res, 401, { error: 'Құпиясөз қате' });
     const token = crypto.randomBytes(32).toString('hex');
     sessions.set(token, Date.now() + SESSION_TTL_MS);
+    // Хостинг (Render, Railway) HTTPS-ті прокси арқылы береді.
+    const secure = req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '';
     json(res, 200, { ok: true }, {
-      'Set-Cookie': `admin_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${SESSION_TTL_MS / 1000}`,
+      'Set-Cookie': `admin_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${SESSION_TTL_MS / 1000}${secure}`,
     });
   }
 
@@ -192,6 +194,10 @@ module.exports = { createServer };
 if (require.main === module) {
   const port = Number(process.env.PORT) || 3000;
   let adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword && process.env.NODE_ENV === 'production') {
+    console.error('ҚАТЕ: production режимінде ADMIN_PASSWORD айнымалысын орнату міндетті.');
+    process.exit(1);
+  }
   if (!adminPassword) {
     adminPassword = 'admin123';
     console.warn('ESKERTU: ADMIN_PASSWORD орнатылмаған, әдепкі "admin123" құпиясөзі қолданылады. Оны міндетті түрде өзгертіңіз!');

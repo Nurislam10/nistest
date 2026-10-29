@@ -21,6 +21,35 @@ ADMIN_PASSWORD='күшті-құпиясөз' npm start
 | `PORT` | Порт | `3000` |
 | `DATA_FILE` | Нәтижелер сақталатын файл | `data/results.json` |
 
+## Интернетке жариялау
+
+Нәтижелер `DATA_FILE` файлында сақталады, сондықтан хостингте **тұрақты диск (volume)** болуы керек.
+Онсыз сервер қайта іске қосылған сайын нәтижелер өшіп қалады.
+Production режимінде (`NODE_ENV=production`) `ADMIN_PASSWORD` берілмесе, сервер іске қосылмайды.
+
+### Render (ұсынылады)
+
+1. https://render.com сайтында GitHub арқылы тіркеліңіз.
+2. **New → Blueprint** батырмасын басып, осы репозиторийді таңдаңыз. Render `render.yaml` файлын өзі оқиды.
+3. `ADMIN_PASSWORD` өрісіне күшті құпиясөз енгізіп, **Apply** басыңыз.
+4. Бірнеше минуттан соң сайт `https://<атауы>.onrender.com` мекенжайында ашылады, админ панелі `/admin` бетінде.
+
+`render.yaml` файлында 1 GB диск қосылған **Starter** жоспары көрсетілген (тегін жоспарда диск жоқ).
+
+### Railway
+
+1. https://railway.app сайтында **New Project → Deploy from GitHub repo** арқылы репозиторийді таңдаңыз (`Dockerfile` бойынша жиналады).
+2. Сервиске **Volume** қосып, оны `/data` жолына бекітіңіз.
+3. **Variables** бөліміне `ADMIN_PASSWORD=<құпиясөз>` және `DATA_FILE=/data/results.json` айнымалыларын қосыңыз.
+4. **Settings → Networking → Generate Domain** арқылы сайт мекенжайын алыңыз.
+
+### Өз серверіңізде (Docker)
+
+```bash
+docker build -t math-logic-test .
+docker run -d -p 80:3000 -e ADMIN_PASSWORD='күшті-құпиясөз' -e DATA_FILE=/data/results.json -v mlt-data:/data math-logic-test
+```
+
 ## Тест құрылымы
 
 10 тақырып, әр тақырыпта 2 сұрақтан (барлығы 20):
