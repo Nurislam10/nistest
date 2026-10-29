@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Математика және логика тесті</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <section id="start" class="card">
+      <h1>Математика және логика: деңгейді анықтау тесті</h1>
+      <p class="muted">Тест 20 сұрақтан тұрады. Әр сұрақта бір ғана дұрыс жауап бар. Барлық сұраққа жауап берген соң «Аяқтау» батырмасын басыңыз.</p>
+      <form id="start-form">
+        <label for="name">Аты-жөніңіз</label>
+        <input id="name" type="text" maxlength="100" required autocomplete="name">
+        <label for="grade">Сыныбыңыз</label>
+        <input id="grade" type="text" maxlength="20" placeholder="мысалы, 7А">
+        <div class="error" id="start-error"></div>
+        <div class="actions"><span></span><button type="submit">Тестті бастау</button></div>
+      </form>
+    </section>
+
+    <section id="quiz" class="card hidden">
+      <div class="muted" id="counter"></div>
+      <div class="progress"><div id="bar"></div></div>
+      <span class="topic-tag" id="topic"></span>
+      <div class="question-text" id="question"></div>
+      <div id="options"></div>
+      <div class="actions">
+        <button type="button" class="secondary" id="prev">← Алдыңғы</button>
+        <button type="button" id="next">Келесі →</button>
+      </div>
+      <div class="dots" id="dots"></div>
+      <div class="error" id="quiz-error"></div>
+    </section>
+
+    <section id="done" class="card hidden">
+      <h1>Рақмет! Тест қабылданды ✅</h1>
+      <p>Жауаптарыңыз сәтті жіберілді. Тест нәтижесін мұғалім (әкімші) қарап, сізге кейін хабарлайды.</p>
+    </section>
+  </main>
+  <script src="/test.js"></script>
+</body>
+</html>

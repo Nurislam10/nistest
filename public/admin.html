@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Админ панелі — тест нәтижелері</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container wide">
+    <section id="login" class="card hidden" style="max-width:420px;margin:40px auto;">
+      <h1>Админ панеліне кіру</h1>
+      <form id="login-form">
+        <label for="password">Құпиясөз</label>
+        <input id="password" type="password" required autocomplete="current-password">
+        <div class="error" id="login-error"></div>
+        <div class="actions"><span></span><button type="submit">Кіру</button></div>
+      </form>
+    </section>
+
+    <section id="list" class="hidden">
+      <div class="topbar">
+        <h1>Оқушылар нәтижелері</h1>
+        <button class="secondary" id="logout">Шығу</button>
+      </div>
+      <div class="card">
+        <div class="stats" id="overview"></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Аты-жөні</th><th>Сынып</th><th>Күні</th><th>Балл</th><th>Деңгей</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="muted" id="empty">Әзірге нәтижелер жоқ.</p>
+      </div>
+    </section>
+
+    <section id="detail" class="hidden">
+      <div class="topbar">
+        <button class="secondary" id="back">← Тізімге оралу</button>
+        <button class="danger" id="delete">Нәтижені өшіру</button>
+      </div>
+      <div class="card">
+        <h1 id="d-name"></h1>
+        <div class="muted" id="d-meta"></div>
+        <div class="stats">
+          <div class="stat"><div class="muted">Балл</div><div class="v" id="d-score"></div></div>
+          <div class="stat"><div class="muted">Деңгей</div><div class="v" id="d-level"></div></div>
+        </div>
+        <p id="d-level-desc"></p>
+
+        <h3>Толтыру керек тақырыптар</h3>
+        <ul class="topic-list improve" id="d-improve"></ul>
+        <h3>Білетін тақырыптары</h3>
+        <ul class="topic-list known" id="d-known"></ul>
+
+        <h3>Сұрақтар бойынша жауаптар</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>№</th><th>Тақырып</th><th>Сұрақ</th><th>Оқушы жауабы</th><th>Дұрыс жауап</th><th></th></tr></thead>
+            <tbody id="d-answers"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="/admin.js"></script>
+</body>
+</html>
